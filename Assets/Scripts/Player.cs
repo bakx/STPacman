@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 0.02f;
 
     // Used for debugging purposes only
     private TextMesh debugText;
+
+    public AudioSource audioSource;
+    public AudioClip pelletSound;
+
     
     // Start is called before the first frame update
     void Start()
     {
         debugText = GameObject.Find("Debug").GetComponent<TextMesh>();
+        audioSource = GetComponent<AudioSource>();
+        pelletSound = (AudioClip) Resources.Load("Sounds/SOUNDDOGS_319256__ar");
     }
 
     // Update is called once per frame
@@ -41,11 +49,6 @@ public class Player : MonoBehaviour
     // Event that occurs when a collision starts
     private void OnCollisionEnter(Collision other)
     {
-         Debug.Log("Someything hit");
-
-        // GetComponent<MeshRenderer>().material.color = Color.red;
-
-
         if (other.gameObject.tag == "Pellet") 
         {
             MeshRenderer pellet =  other.gameObject.GetComponent<MeshRenderer>();
@@ -55,10 +58,8 @@ public class Player : MonoBehaviour
             // Make pellet dissapear
             UnityEngine.Object.Destroy( other.gameObject );
 
-
             // Play sound
-            
-
+            audioSource.PlayOneShot(pelletSound, 0.7F);
         }
 
     }
