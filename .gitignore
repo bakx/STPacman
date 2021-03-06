@@ -6,3 +6,13 @@ Library/StateCache/
 Temp/
 Logs/
 obj/
+Packages/packages-lock.json
+Library/SourceAssetDB-lock
+Library/PackageManager/ProjectCache
+Library/expandedItems
+Library/CurrentLayout-default.dwlt
+Library/EditorInstance.json
+Library/EditorSnapSettings.asset
+Library/EditorUserBuildSettings.asset
+Library/SceneVisibilityState.asset
+Library/CurrentLayout-default.dwlt
