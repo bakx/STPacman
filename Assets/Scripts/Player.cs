@@ -11,17 +11,20 @@ public class Player : MonoBehaviour
 
     // Used for debugging purposes only
     private TextMesh debugText;
-
+    private Text scoreText;
     public AudioSource audioSource;
     public AudioClip pelletSound;
-
-    
+    private int score = 0;  
+      
     // Start is called before the first frame update
     void Start()
     {
         debugText = GameObject.Find("Debug").GetComponent<TextMesh>();
+        scoreText = GameObject.Find("Score").GetComponent<Text>();
         audioSource = GetComponent<AudioSource>();
         pelletSound = (AudioClip) Resources.Load("Sounds/SOUNDDOGS_319256__ar");
+
+
     }
 
     // Update is called once per frame
@@ -54,6 +57,10 @@ public class Player : MonoBehaviour
             MeshRenderer pellet =  other.gameObject.GetComponent<MeshRenderer>();
 
             // Increase score
+            score += 10;
+
+            // Update UI
+            UpdateScore();
 
             // Make pellet dissapear
             UnityEngine.Object.Destroy( other.gameObject );
@@ -61,6 +68,10 @@ public class Player : MonoBehaviour
             // Play sound
             audioSource.PlayOneShot(pelletSound, 0.7F);
         }
+    }
 
+    private void UpdateScore() 
+    {
+        scoreText.text = $"Score : {score}";
     }
 }
