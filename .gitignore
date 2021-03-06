@@ -6,6 +6,7 @@ Library/StateCache/
 Temp/
 Logs/
 obj/
+bin/
 Packages/packages-lock.json
 Library/SourceAssetDB-lock
 Library/PackageManager/ProjectCache
@@ -16,3 +17,4 @@ Library/EditorSnapSettings.asset
 Library/EditorUserBuildSettings.asset
 Library/SceneVisibilityState.asset
 Library/CurrentLayout-default.dwlt
+Library/PlayerDataCache/
