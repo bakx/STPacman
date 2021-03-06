@@ -4,6 +4,9 @@ using System.Linq;
 
 public class Level : MonoBehaviour
 {
+     [SerializeField] float spread = 3.0f;
+     [SerializeField] int items = 10;
+
 
     internal struct BlackoutPosition {
         public BlackoutPosition(int x, int z) {
@@ -20,8 +23,6 @@ public class Level : MonoBehaviour
     {
          GameObject pellet = (GameObject) Resources.Load("Pellet");
 
-         int multi = 3;
-         int items = 10;
          List<BlackoutPosition> blackoutPositions = new List<BlackoutPosition>{
              new BlackoutPosition(0, 3),
              new BlackoutPosition(1, 3),
@@ -38,8 +39,32 @@ public class Level : MonoBehaviour
 
         for (int x = 0; x < items; x++) {
             for (int z = 0; z < items; z++) {
-                if (blackoutPositions.Any(b => b.X == x && b.Z == z)) continue;
-                Instantiate(pellet, new Vector3( -10 + x * multi, 0.4f, -10 + z * multi), Quaternion.identity);
+                // Check if this spot is a blackout spot
+                if (blackoutPositions.Any(b => b.X == x && b.Z == z)) {
+                    continue;
+                }
+
+                // Calculate the X position
+                float xPosition = 
+                    -10 /* Map specific offset */ 
+                    + x /* Position of our for loop */
+                    * spread /* Used to scale out the pellets */;
+
+                // Modify x position to align better with the corners
+                /*float modifyX = x > (items - 1) / 2 ? 0.5f : 0.5f;
+                
+                // Modify the X position
+                if (modifyX > 0) {
+                    xPosition += modifyX;
+                } else {
+                    xPosition -= modifyX;
+                }*/
+                
+
+                // Calculate the Z position
+                float zPosition = -10 + z * spread;
+
+                Instantiate(pellet, new Vector3( xPosition, 0.4f, zPosition), Quaternion.identity);
             }
         }
     }
